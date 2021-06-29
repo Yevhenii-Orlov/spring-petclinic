@@ -2,7 +2,13 @@ pipeline {
     agent { label 'java' }
        
     stages {
-        stage('Build') {
+        stage ('SCM Checkout'){
+            git 'https://github.com/Yevhenii-Orlov/spring-petclinic'
+        }
+        stage ('Compile-Package'){
+            sh 'mvn package'
+        }    
+        /*stage('Build') {
             steps {
                 git url: 'https://github.com/Yevhenii-Orlov/spring-petclinic'
                 withMaven {
@@ -25,5 +31,5 @@ pipeline {
                 sh './jenkins/scripts/deliver.sh' 
             }
         }
-    }
+    }*/
 }

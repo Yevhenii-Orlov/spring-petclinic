@@ -27,8 +27,8 @@ pipeline {
 
     stage ('Restart service') {
             steps {
-            sh '''sudo mv ./service/spring-petclinic-2.4.5.service /etc/systemd/system/spring-petclinic-2.4.5.service
-                  sudo mv ./service/spring-petclinic-2.4.5.sh /usr/local/bin/spring-petclinic-2.4.5.sh
+            sh '''cp ./service/spring-petclinic-2.4.5.service /etc/systemd/system/spring-petclinic-2.4.5.service
+                  cp ./service/spring-petclinic-2.4.5.sh /usr/local/bin/spring-petclinic-2.4.5.sh
                   sudo chmod +x /usr/local/bin/spring-petclinic-2.4.5.sh
                   /usr/local/bin/./spring-petclinic-2.4.5.sh start'''
     }

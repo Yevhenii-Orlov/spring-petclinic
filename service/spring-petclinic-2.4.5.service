@@ -1,0 +1,9 @@
+[Unit]
+Description = Java Service
+After network.target = spring-petclinic-2.4.5.service
+
+[Service]
+Type = forking
+ExecStart = /usr/local/bin/spring-petclinic-2.4.5.sh start
+ExecStop = /usr/local/bin/spring-petclinic-2.4.5.sh stop
+ExecReload = /usr/local/bin/spring-petclinic-2.4.5.sh reload

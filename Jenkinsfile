@@ -1,12 +1,12 @@
 pipeline {
-  
+
   agent { label 'java' }
-  
+
   tools {
     maven 'Maven3'
     jdk 'jdk8'
-  } 
-  
+  }
+
   stages {
     stage('Cloning Git') {
       steps {
@@ -18,16 +18,20 @@ pipeline {
          sh 'mvn compile' //only compilation of the code
        }
     }
-    
+
     stage ('Build') {
             steps {
-                sh 'mvn -Dmaven.test.failure.ignore=true install' 
+                sh 'mvn -Dmaven.test.failure.ignore=true install'
             }
-            post {
-                success {
-                    junit 'target/surefire-reports/**/*.xml' 
-                }
-            }
-        }
     }
+
+    stage ('Restart service') {
+            steps {
+            sh '''sudo mv ./service/spring-petclinic-2.4.5.service /etc/systemd/system/spring-petclinic-2.4.5.service
+                  sudo mv ./service/spring-petclinic-2.4.5.sh /usr/local/bin/spring-petclinic-2.4.5.sh
+                  sudo chmod +x /usr/local/bin/spring-petclinic-2.4.5.sh
+                  /usr/local/bin/./spring-petclinic-2.4.5.sh start'''
+    }
+
+  }
 }
